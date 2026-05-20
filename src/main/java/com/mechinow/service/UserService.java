@@ -24,7 +24,7 @@ public class UserService {
         Optional<User> userOpt = userRepository.findByEmail(email);
         if (userOpt.isPresent()) {
             User user = userOpt.get();
-            if (user.getPassword() != null && 
+            if (user.getPassword() != null &&
                 user.getPassword().equals(password)) {
                 return userOpt;
             }
@@ -36,5 +36,25 @@ public class UserService {
         return userRepository.findAll().stream()
                 .filter(u -> "mechanic".equals(u.getRole()))
                 .toList();
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public boolean emailExists(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    public void updatePassword(String email, String newPassword) {
+        Optional<User> userOpt = userRepository.findByEmail(email);
+        userOpt.ifPresent(user -> {
+            user.setPassword(newPassword);
+            userRepository.save(user);
+        });
     }
 }
