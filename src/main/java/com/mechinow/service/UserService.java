@@ -24,8 +24,7 @@ public class UserService {
         Optional<User> userOpt = userRepository.findByEmail(email);
         if (userOpt.isPresent()) {
             User user = userOpt.get();
-            if (user.getPassword() != null &&
-                user.getPassword().equals(password)) {
+            if (user.getPassword() != null && user.getPassword().equals(password)) {
                 return userOpt;
             }
         }
@@ -56,5 +55,15 @@ public class UserService {
             user.setPassword(newPassword);
             userRepository.save(user);
         });
+    }
+
+    public User updateUser(Long id, User updatedUser) {
+        return userRepository.findById(id).map(user -> {
+            user.setName(updatedUser.getName());
+            user.setPhone(updatedUser.getPhone());
+            user.setVehicleType(updatedUser.getVehicleType());
+            user.setVehicleModel(updatedUser.getVehicleModel());
+            return userRepository.save(user);
+        }).orElseThrow(() -> new RuntimeException("User not found!"));
     }
 }

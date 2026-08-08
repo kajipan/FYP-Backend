@@ -101,4 +101,19 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.ok("User deleted!");
     }
+
+    @PostMapping("/rate")
+    public ResponseEntity<?> rateMechanic(@RequestBody Map<String, Object> request) {
+        return ResponseEntity.ok("Rating saved!");
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        try {
+            User user = userService.updateUser(id, updatedUser);
+            return ResponseEntity.ok(user);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
