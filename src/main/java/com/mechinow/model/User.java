@@ -18,6 +18,10 @@ public class User {
     private String vehicleType;
     private String vehicleModel;
     private boolean isOnline;
+    private int jobsDone = 0;
+    private double totalEarnings = 0;
+    private double ratingSum = 0;
+    private int ratingCount = 0;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -45,4 +49,14 @@ public class User {
 
     public boolean isOnline() { return isOnline; }
     public void setOnline(boolean isOnline) { this.isOnline = isOnline; }
+
+    public int getJobsDone() { return jobsDone; }
+    public void setJobsDone(int jobsDone) { this.jobsDone = jobsDone; }
+    public double getTotalEarnings() { return totalEarnings; }
+    public void setTotalEarnings(double totalEarnings) { this.totalEarnings = totalEarnings; }
+    public double getRatingSum() { return ratingSum; }
+    public void setRatingSum(double ratingSum) { this.ratingSum = ratingSum; }
+    public int getRatingCount() { return ratingCount; }
+    public void setRatingCount(int ratingCount) { this.ratingCount = ratingCount; }
+    public double getAverageRating() { return ratingCount == 0 ? 0 : ratingSum / ratingCount; }
 }

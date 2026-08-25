@@ -58,5 +58,23 @@ public class EmailService {
         );
         mailSender.send(message);
     }
+
+    public void sendPaymentReceipt(String email, String userName, String mechanicName, String issue, double amount, String method) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("MechNow - Payment Receipt");
+        message.setText(
+            "Hi " + userName + ",\n\n" +
+            "Thank you for using MechNow! Here is your payment receipt:\n\n" +
+            "Mechanic: " + mechanicName + "\n" +
+            "Service: " + issue + "\n" +
+            "Amount Paid: Rs. " + amount + "\n" +
+            "Payment Method: " + method + "\n\n" +
+            "We hope your vehicle issue is resolved. See you next time!\n\n" +
+            "Team MechNow"
+        );
+        mailSender.send(message);
+    }
+
 }
  
